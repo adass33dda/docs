@@ -1,150 +1,125 @@
 ---
 title: "Antiraid"
-description: "Shut down mass joins, bot raids, and suspicious accounts before they hit the server."
-icon: "shield-halved"
+description: "Prevent automated accounts from joining your server."
+icon: "person-to-door"
+sidebarTitle: "Antiraid"
 ---
 
-## Overview
+<Note>
+  Security Setup
+</Note>
 
-### Why use an antiraid system?
+## Configuring the antiraid system
 
-Raids happen fast. Dozens of accounts can flood your server in seconds, spam every channel, and vanish before staff can react. Antiraid lets Sanity spot the surge and hit the brakes for you.
+### Preventing mass joins
 
-### How does antiraid work?
+This module will trigger when the number of accounts joining the server exceeds the threshold within a short time frame.
 
-Sanity watches new joins in real time and applies your rules automatically. Anything matching a raid pattern, mass joins, empty avatars, brand new accounts, gets kicked or banned the moment it lands.
-
-## Configuring antiraid
-
-<Tip>
-  Pair antiraid with a locked verification level in Discord's server settings for the best coverage.
-</Tip>
-
-### Toggling the raid state
-
-Flip the whole system on or off in a single command. Useful when you want to lock the server down during an active raid.
+<Warning>
+  Whenever the threshold is reached, the server will be placed in a raid state. This will temporarily disable intensive events which Sanity dispatches, such as **welcome** and **goodbye** messages.
+</Warning>
 
 <CodeGroup>
 
 ```txt Syntax
-,antiraid state (on | off)
+,antiraid massjoin (on | off) --threshold <number> --do <kick | ban> --lock <true | false> --punish <true | false>
 ```
 
 ```txt Example
-,antiraid state on
+,antiraid massjoin on --threshold 5 --do ban --lock true --punish true
 ```
 
 </CodeGroup>
-
-### Viewing the current configuration
-
-Check which modules are enabled, their thresholds, and the punishment attached to each one.
-
-<CodeGroup>
-
-```txt Syntax
-,antiraid config
-```
-
-```txt Example
-,antiraid config
-```
-
-</CodeGroup>
-
-## Punishments
-
-Every antiraid module lets you pick how Sanity responds when it catches a suspicious join.
-
-<CardGroup cols={2}>
-  <Card title="Kick" icon="door-open">
-    Removes the account from the server so they have to rejoin.
-  </Card>
-
-  <Card title="Ban" icon="hammer">
-    Permanently bans the account from ever coming back.
-  </Card>
-</CardGroup>
-
-## Available modules
 
 <AccordionGroup>
-  <Accordion title="Blocking accounts without an avatar" icon="user-slash">
-    Punish accounts that join without a profile picture. Raid accounts almost never bother uploading one.
-
-    <CodeGroup>
-
-    ```txt Syntax
-    ,antiraid avatar [enable | disable] [kick | ban]
-    ```
-
-    ```txt Example
-    ,antiraid avatar enable kick
-    ```
-
-    </CodeGroup>
+  <Accordion title="Threshold">
+    Number of joins required inside the raid window before Sanity flags the burst as a raid. Set with `--threshold <number>`.
   </Accordion>
 
-  <Accordion title="Stopping mass joins" icon="users-slash">
-    Trigger an automatic response when too many accounts join inside your configured time window. Sanity tracks the burst, ignores whitelisted members, and cleans up recent raid joins for you.
-
-    <CodeGroup>
-
-    ```txt Syntax
-    ,antiraid massjoin (on | off) --threshold <number> --do <kick | ban> --lock <true | false> --punish <true | false>
-    ```
-
-    ```txt Example
-    ,antiraid massjoin on --threshold 5 --do ban --lock true --punish true
-    ```
-
-    </CodeGroup>
-
-    **Flags**
-
-    | Flag | Description |
-    | --- | --- |
-    | `--threshold` | Number of joins required to trigger a raid response. |
-    | `--do` | Punishment action applied to recent raid members (`kick` or `ban`). |
-    | `--lock` | Locks text channels the moment a raid is detected. |
-    | `--punish` | Enables or disables the punishment action. |
-
-    **When a raid is detected, Sanity will:**
-
-    - Detect joins that land inside the configured time window
-    - Skip any whitelisted members
-    - Lock text channels if `--lock true` is set
-    - Kick or ban recent raid members if `--punish true` is set
-    - Post an AntiRaid entry in your security log
-    - Suppress duplicate triggers during the same raid window
+  <Accordion title="Punishment">
+    Action applied to members caught in the raid. Set with `--do kick` or `--do ban`.
   </Accordion>
 
-  <Accordion title="Filtering newly registered accounts" icon="user-clock">
-    Reject accounts whose Discord profile was created within the last few days. Freshly made accounts are the number one raid signal.
+  <Accordion title="Lock channels">
+    When `--lock true`, Sanity locks text channels the moment a raid is detected so raiders cannot spam while staff respond.
+  </Accordion>
 
-    <CodeGroup>
-
-    ```txt Syntax
-    ,antiraid newaccounts [enable | disable] [days] [kick | ban]
-    ```
-
-    ```txt Example
-    ,antiraid newaccounts enable 7 ban
-    ```
-
-    </CodeGroup>
+  <Accordion title="Punish new accounts">
+    When `--punish true`, Sanity applies the configured punishment to recently joined members who match the raid window.
   </Accordion>
 </AccordionGroup>
 
-## Whitelisting a member
+<Frame>
+  ![Enabling the massjoin antiraid module in Discord](images/2026-08-05_02h15_55.png)
+</Frame>
 
-Running a giveaway, a partner drop, or an event? Whitelist an account so antiraid ignores them for a single join.
+### Requiring an avatar
+
+This module will trigger when an account joins the server without an avatar.
+
+<CodeGroup>
+
+```txt Syntax
+,antiraid avatar (on | off) --do <kick | ban>
+```
+
+```txt Example
+,antiraid avatar on --do kick
+```
+
+</CodeGroup>
+
+<AccordionGroup>
+  <Accordion title="Punishment">
+    Action applied to accounts that join without a profile picture. Set with `--do kick` or `--do ban`.
+  </Accordion>
+</AccordionGroup>
+
+<Frame>
+  ![Enabling the avatar antiraid module in Discord](images/2026-08-05_02h19_40.png)
+</Frame>
+
+### Setting a minimum account age
+
+This module will trigger when an account joins the server that is younger than the specified age.
 
 <Info>
-  Whitelists are **one-time use**. Once the member joins, they are removed from the list automatically.
+  The `threshold` flag is the number of days for an account to be considered old enough.
 </Info>
 
-### Adding a whitelist
+<CodeGroup>
+
+```txt Syntax
+,antiraid newaccounts (on | off) --threshold <days> --do <kick | ban>
+```
+
+```txt Example
+,antiraid newaccounts on --threshold 7 --do ban
+```
+
+</CodeGroup>
+
+<AccordionGroup>
+  <Accordion title="Threshold">
+    Minimum number of days an account must exist before it is allowed to join. Set with `--threshold <days>`.
+  </Accordion>
+
+  <Accordion title="Punishment">
+    Action applied to accounts younger than the threshold. Set with `--do kick` or `--do ban`.
+  </Accordion>
+</AccordionGroup>
+
+<Frame>
+  ![Enabling the newaccounts antiraid module in Discord](images/2026-08-05_02h27_11.png)
+</Frame>
+
+### Exempting accounts from the antiraid
+
+You can exempt accounts from the antiraid with the `antiraid whitelist` command.
+
+<Info>
+  You can use the `antiraid whitelist view` command to view all whitelisted accounts.
+</Info>
 
 <CodeGroup>
 
@@ -158,28 +133,24 @@ Running a giveaway, a partner drop, or an event? Whitelist an account so antirai
 
 </CodeGroup>
 
-### Viewing active whitelists
+## Viewing the antiraid configuration
 
-<CodeGroup>
-
-```txt Syntax
-,antiraid whitelist view
-```
-
-```txt Example
-,antiraid whitelist view
-```
-
-</CodeGroup>
-
-## Command reference
-
-Every antiraid command at a glance.
+You can use the `antiraid config` command to view the current antiraid configuration.
 
 <Frame>
-  ![Antiraid, antiraid avatar, and antiraid config commands](/images/antiraid-cards-1.png)
+  ![Output of the antiraid config command in Discord](images/2026-08-05_02h33_10.png)
 </Frame>
 
-<Frame>
-  ![Antiraid massjoin, newaccounts, state, and whitelist commands](/images/antiraid-cards-2.png)
-</Frame>
+## What to do after a raid
+
+<Steps>
+  <Step title="Cleaning up">
+    Review the security log for the raid entry, then use `,antiraid state off` once you have confirmed the burst has ended. Sanity keeps recent raid joins in the log so you can audit anyone that slipped through.
+  </Step>
+  <Step title="Tightening thresholds">
+    If the raid got past your current settings, lower `--threshold` on `massjoin`, raise the required account age, or switch punishments from `kick` to `ban` until the pattern stops.
+  </Step>
+  <Step title="Locking down verification">
+    Pair antiraid with Discord's built-in verification level and a members-only role gate so future raids hit a wall before they even reach your channels.
+  </Step>
+</Steps>
