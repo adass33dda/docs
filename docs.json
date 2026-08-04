@@ -23,20 +23,7 @@
         "group": "Getting Started",
         "pages": [
           "index",
-          "quickstart"
-        ]
-      },
-      {
-        "group": "Getting Started",
-        "pages": [
-          "index",
-          "quickstart"
-        ]
-      },
-      {
-        "group": "OverView",
-        "pages": [
-          "index",
+          "quickstart",
           "customization"
         ]
       },
