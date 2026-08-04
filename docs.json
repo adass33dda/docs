@@ -49,8 +49,8 @@
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.mintlify.com"
+      "label": "WebSite",
+      "href": "https://sanity.ws"
     }
   },
   "contextual": {
