@@ -86,23 +86,37 @@ Every antiraid module lets you pick how Sanity responds when it catches a suspic
   </Accordion>
 
   <Accordion title="Stopping mass joins" icon="users-slash">
-    Trigger a punishment when too many accounts join inside a short window. Sanity tracks the join burst for you.
-
-    <Info>
-      `threshold` is the number of joins, `window` is the amount of seconds to watch.
-    </Info>
+    Trigger an automatic response when too many accounts join inside your configured time window. Sanity tracks the burst, ignores whitelisted members, and cleans up recent raid joins for you.
 
     <CodeGroup>
 
     ```txt Syntax
-    ,antiraid massjoin [enable | disable] [threshold] [window]
+    ,antiraid massjoin (on | off) --threshold <number> --do <kick | ban> --lock <true | false> --punish <true | false>
     ```
 
     ```txt Example
-    ,antiraid massjoin enable 5 10
+    ,antiraid massjoin on --threshold 5 --do ban --lock true --punish true
     ```
 
     </CodeGroup>
+
+    **Flags**
+
+    | Flag | Description |
+    | --- | --- |
+    | `--threshold` | Number of joins required to trigger a raid response. |
+    | `--do` | Punishment action applied to recent raid members (`kick` or `ban`). |
+    | `--lock` | Locks text channels the moment a raid is detected. |
+    | `--punish` | Enables or disables the punishment action. |
+
+    **When a raid is detected, Sanity will:**
+
+    - Detect joins that land inside the configured time window
+    - Skip any whitelisted members
+    - Lock text channels if `--lock true` is set
+    - Kick or ban recent raid members if `--punish true` is set
+    - Post an AntiRaid entry in your security log
+    - Suppress duplicate triggers during the same raid window
   </Accordion>
 
   <Accordion title="Filtering newly registered accounts" icon="user-clock">
@@ -135,11 +149,11 @@ Running a giveaway, a partner drop, or an event? Whitelist an account so antirai
 <CodeGroup>
 
 ```txt Syntax
-,antiraid whitelist add (member)
+,antiraid whitelist (member)
 ```
 
 ```txt Example
-,antiraid whitelist add @Inboards
+,antiraid whitelist @Inboards
 ```
 
 </CodeGroup>
