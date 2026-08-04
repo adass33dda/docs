@@ -1,0 +1,171 @@
+---
+title: "Antiraid"
+description: "Shut down mass joins, bot raids, and suspicious accounts before they hit the server."
+icon: "shield-halved"
+---
+
+## Overview
+
+### Why use an antiraid system?
+
+Raids happen fast. Dozens of accounts can flood your server in seconds, spam every channel, and vanish before staff can react. Antiraid lets Sanity spot the surge and hit the brakes for you.
+
+### How does antiraid work?
+
+Sanity watches new joins in real time and applies your rules automatically. Anything matching a raid pattern, mass joins, empty avatars, brand new accounts, gets kicked or banned the moment it lands.
+
+## Configuring antiraid
+
+<Tip>
+  Pair antiraid with a locked verification level in Discord's server settings for the best coverage.
+</Tip>
+
+### Toggling the raid state
+
+Flip the whole system on or off in a single command. Useful when you want to lock the server down during an active raid.
+
+<CodeGroup>
+
+```txt Syntax
+,antiraid state (on | off)
+```
+
+```txt Example
+,antiraid state on
+```
+
+</CodeGroup>
+
+### Viewing the current configuration
+
+Check which modules are enabled, their thresholds, and the punishment attached to each one.
+
+<CodeGroup>
+
+```txt Syntax
+,antiraid config
+```
+
+```txt Example
+,antiraid config
+```
+
+</CodeGroup>
+
+## Punishments
+
+Every antiraid module lets you pick how Sanity responds when it catches a suspicious join.
+
+<CardGroup cols={2}>
+  <Card title="Kick" icon="door-open">
+    Removes the account from the server so they have to rejoin.
+  </Card>
+
+  <Card title="Ban" icon="hammer">
+    Permanently bans the account from ever coming back.
+  </Card>
+</CardGroup>
+
+## Available modules
+
+<AccordionGroup>
+  <Accordion title="Blocking accounts without an avatar" icon="user-slash">
+    Punish accounts that join without a profile picture. Raid accounts almost never bother uploading one.
+
+    <CodeGroup>
+
+    ```txt Syntax
+    ,antiraid avatar [enable | disable] [kick | ban]
+    ```
+
+    ```txt Example
+    ,antiraid avatar enable kick
+    ```
+
+    </CodeGroup>
+  </Accordion>
+
+  <Accordion title="Stopping mass joins" icon="users-slash">
+    Trigger a punishment when too many accounts join inside a short window. Sanity tracks the join burst for you.
+
+    <Info>
+      `threshold` is the number of joins, `window` is the amount of seconds to watch.
+    </Info>
+
+    <CodeGroup>
+
+    ```txt Syntax
+    ,antiraid massjoin [enable | disable] [threshold] [window]
+    ```
+
+    ```txt Example
+    ,antiraid massjoin enable 5 10
+    ```
+
+    </CodeGroup>
+  </Accordion>
+
+  <Accordion title="Filtering newly registered accounts" icon="user-clock">
+    Reject accounts whose Discord profile was created within the last few days. Freshly made accounts are the number one raid signal.
+
+    <CodeGroup>
+
+    ```txt Syntax
+    ,antiraid newaccounts [enable | disable] [days] [kick | ban]
+    ```
+
+    ```txt Example
+    ,antiraid newaccounts enable 7 ban
+    ```
+
+    </CodeGroup>
+  </Accordion>
+</AccordionGroup>
+
+## Whitelisting a member
+
+Running a giveaway, a partner drop, or an event? Whitelist an account so antiraid ignores them for a single join.
+
+<Info>
+  Whitelists are **one-time use**. Once the member joins, they are removed from the list automatically.
+</Info>
+
+### Adding a whitelist
+
+<CodeGroup>
+
+```txt Syntax
+,antiraid whitelist add (member)
+```
+
+```txt Example
+,antiraid whitelist add @Inboards
+```
+
+</CodeGroup>
+
+### Viewing active whitelists
+
+<CodeGroup>
+
+```txt Syntax
+,antiraid whitelist view
+```
+
+```txt Example
+,antiraid whitelist view
+```
+
+</CodeGroup>
+
+## Command reference
+
+Every antiraid command at a glance.
+
+<Frame>
+  ![Antiraid, antiraid avatar, and antiraid config commands](/images/antiraid-cards-1.png)
+</Frame>
+
+<Frame>
+  ![Antiraid massjoin, newaccounts, state, and whitelist commands](/images/antiraid-cards-2.png)
+</Frame>
