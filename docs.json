@@ -27,6 +27,13 @@
         ]
       },
       {
+        "group": "Getting Started",
+        "pages": [
+          "index",
+          "quickstart"
+        ]
+      },
+      {
         "group": "OverView",
         "pages": [
           "index",
