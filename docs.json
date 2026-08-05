@@ -8,8 +8,8 @@
     "dark": "#8BCEC4"
   },
   "favicon": {
-    "light": "/favicon.svg",
-    "dark": "/images/sanitylogo.png"
+    "light": "/images/sanitylogo.svg",
+    "dark": "/images/sanitylogo.svg"
   },
   "navigation": {
     "pages": [
