@@ -7,28 +7,28 @@ sidebarTitle: "Antinuke"
 
 ## Overview
 
-### Why use an antinuke system?
+### Why run antinuke?
 
-It's important to have an antinuke system in place to prevent moderators from abusing their permissions. This is a security measure which keeps your server safe from any harmful actions.
+Even trusted staff can go rogue, get compromised, or make a costly mistake. Antinuke acts as a safety net: it watches sensitive actions across the server and steps in the moment something looks like sabotage.
 
-### How does the antinuke work?
+### How Sanity's antinuke works
 
-Antinuke sets a limit on the number of actions a moderator can perform in a certain time frame. If the limit is exceeded, the moderator will be punished and a message will be sent to the owner.
+Each module tracks a specific type of destructive action (bans, kicks, role deletes, and so on). When a member crosses the threshold you set within a short window, Sanity automatically applies the punishment you chose and notifies the owner so nothing slips by unnoticed.
 
 ---
 
-## Configuring the antinuke
+## Configuring antinuke
 
 <Tip>
-  Discord recently implemented a new **mass ban** feature which can quickly ban **100\+** members. It's **HIGHLY** recommended to utilize [fake permissions](/security/fake-permissions) to prevent moderators from using this feature.
+  Discord's built-in **mass ban** tool can remove **100\+** members in a single click. Pair antinuke with [fake permissions](/security/fake-permissions) so staff never touch that button in the first place.
 </Tip>
 
-### Allowing users to configure the antinuke
+### Granting configuration access
 
-Initially, only the **server owner** can configure the antinuke. However, you can allow other users to configure the antinuke with the `antinuke admin` command.
+By default only the **server owner** can change antinuke settings. To let a trusted person help manage it, promote them with `antinuke admin`.
 
 <Warning>
-  This is a dangerous command and will allow the user to entirely alter the antinuke configuration.
+  Antinuke admins can rewrite the entire configuration. Only give this to people you'd trust with the server itself.
 </Warning>
 
 <CodeGroup>
@@ -38,7 +38,7 @@ Initially, only the **server owner** can configure the antinuke. However, you ca
 ```
 
 ```txt Example
-,antinuke admin @jonathan
+,antinuke admin @Dom
 ```
 
 </CodeGroup>
@@ -47,12 +47,12 @@ Initially, only the **server owner** can configure the antinuke. However, you ca
   ![Antinuke admin toggle](/images/antinuke/admin.png)
 </Frame>
 
-### Exempting users from the antinuke
+### Whitelisting a user
 
-You can exempt users from the antinuke with the `antinuke whitelist` command.
+Some members (bot developers, other security bots, alt accounts) need to perform actions that would normally trip antinuke. Add them to the whitelist so they're skipped.
 
 <Warning>
-  This is a dangerous command and will allow the user to bypass the antinuke entirely.
+  Whitelisted users bypass antinuke completely. Keep this list short.
 </Warning>
 
 <CodeGroup>
@@ -62,7 +62,7 @@ You can exempt users from the antinuke with the `antinuke whitelist` command.
 ```
 
 ```txt Example
-,antinuke whitelist @jonathan
+,antinuke whitelist @Dom
 ```
 
 </CodeGroup>
@@ -73,18 +73,18 @@ You can exempt users from the antinuke with the `antinuke whitelist` command.
 
 ---
 
-## Enabling an antinuke module
+## Enabling a module
 
-### Available Flags
+### Available flags
 
-The following flags can be used to define the antinuke module
+These flags shape how each module behaves.
 
 <AccordionGroup>
   <Accordion title="Threshold">
-    The threshold is the number of actions a moderator can perform before being punished.
+    How many matching actions a member can take before Sanity punishes them.
 
     <Info>
-      It's recommended to keep the threshold between `1` and `6` to stay safe.
+      Anything between `1` and `6` is a solid starting range for most servers.
     </Info>
 
     <CodeGroup>
@@ -101,10 +101,10 @@ The following flags can be used to define the antinuke module
   </Accordion>
 
   <Accordion title="Punishment">
-    The punishment which will be applied to the moderator.
+    What Sanity does to the offender once they trip the threshold.
 
     <Info>
-      Available punishments can be found in the [punishments](/security/punishments) section.
+      See [punishments](/security/punishments) for the full list of options.
     </Info>
 
     <CodeGroup>
@@ -120,8 +120,8 @@ The following flags can be used to define the antinuke module
     </CodeGroup>
   </Accordion>
 
-  <Accordion title="Command Detection">
-    Whether bleed commands should be counted towards the threshold. (e.g. `,ban`)
+  <Accordion title="Command detection">
+    Also count Sanity commands (like `,ban` or `,kick`) toward the threshold, not just raw Discord actions.
 
     <CodeGroup>
 
@@ -137,14 +137,14 @@ The following flags can be used to define the antinuke module
   </Accordion>
 </AccordionGroup>
 
-### Available Modules
+### Available modules
 
 <AccordionGroup>
-  <Accordion title="Punishing members for changing the vanity URL">
-    You can prevent members from changing the vanity URL with the following command
+  <Accordion title="Protect the vanity URL">
+    Stops members from claiming or wiping the server's custom invite.
 
     <Warning>
-      bleed cannot revert the vanity URL due to Discord limitations.
+      Discord doesn't let bots restore a vanity once it's changed, so prevention is the whole game here.
     </Warning>
 
     <CodeGroup>
@@ -164,11 +164,11 @@ The following flags can be used to define the antinuke module
     </Frame>
   </Accordion>
 
-  <Accordion title="Preventing bots from being added">
-    You can prevent bots from being mass added with the following command
+  <Accordion title="Block unauthorized bots">
+    Prevents anyone from adding new bots to the server without approval.
 
     <Info>
-      You'll need to use `antinuke whitelist (bot ID)` to invite bots.
+      To bring in a bot you actually want, whitelist its ID first with `,antinuke whitelist (bot ID)`.
     </Info>
 
     <CodeGroup>
@@ -188,11 +188,11 @@ The following flags can be used to define the antinuke module
     </Frame>
   </Accordion>
 
-  <Accordion title="Preventing members from being banned">
-    You can prevent members from being mass banned with the following command
+  <Accordion title="Guard against mass bans">
+    Catches staff or attackers trying to sweep the member list with bans.
 
     <Info>
-      It's recommended to include the `--command on` flag.
+      Turn on `--command on` so `,ban` spam counts too.
     </Info>
 
     <CodeGroup>
@@ -212,11 +212,11 @@ The following flags can be used to define the antinuke module
     </Frame>
   </Accordion>
 
-  <Accordion title="Preventing members from being kicked">
-    You can prevent members from being mass kicked with the following command
+  <Accordion title="Guard against mass kicks">
+    Same idea as the ban module, but for kick spam.
 
     <Info>
-      It's recommended to include the `--command on` flag.
+      `--command on` is recommended so bot-driven kicks are counted.
     </Info>
 
     <CodeGroup>
@@ -236,11 +236,11 @@ The following flags can be used to define the antinuke module
     </Frame>
   </Accordion>
 
-  <Accordion title="Preventing roles from being deleted">
-    You can prevent roles from being mass deleted with the following command
+  <Accordion title="Protect roles from mass deletion">
+    Stops anyone from tearing down your role structure in seconds.
 
     <Info>
-      It's recommended to include the `--command on` flag.
+      Enable `--command on` to catch role deletion done through Sanity itself.
     </Info>
 
     <CodeGroup>
@@ -260,8 +260,8 @@ The following flags can be used to define the antinuke module
     </Frame>
   </Accordion>
 
-  <Accordion title="Preventing channels from being created or deleted">
-    You can prevent channels from being mass created or deleted with the following command
+  <Accordion title="Protect channels from mass changes">
+    Watches for a burst of channel creations or deletions, a classic nuke pattern.
 
     <CodeGroup>
 
@@ -280,8 +280,8 @@ The following flags can be used to define the antinuke module
     </Frame>
   </Accordion>
 
-  <Accordion title="Preventing emojis from being deleted">
-    You can prevent emojis from being mass deleted with the following command
+  <Accordion title="Protect emojis and stickers">
+    Keeps someone from wiping out your custom expressions on the way out the door.
 
     <CodeGroup>
 
@@ -300,8 +300,8 @@ The following flags can be used to define the antinuke module
     </Frame>
   </Accordion>
 
-  <Accordion title="Preventing webhooks from being created">
-    You can prevent webhooks from being mass created with the following command
+  <Accordion title="Block mass webhook creation">
+    Webhooks are a common backdoor for spam and phishing. This module shuts that down.
 
     <CodeGroup>
 
@@ -316,40 +316,42 @@ The following flags can be used to define the antinuke module
     </CodeGroup>
 
     <Frame>
-      ![Webhook antinuke module](/images/antinuke/webhook.png)
+      ![Webhook antinuke module](images/2026-08-04_23h30_52.png)
     </Frame>
   </Accordion>
 </AccordionGroup>
 
-## Disabling an antinuke module
+## Disabling a module
 
-You can disable an antinuke module with the same command you used to enable it, but with the status set to `off`.
+Run the same command you used to enable it, but pass `off` instead of `on`. Any thresholds you configured are remembered if you turn it back on later.
 
 ## Viewing the antinuke configuration
 
-You can use the `antinuke config` command to view the current antinuke configuration.
+Use `antinuke config` to see the full status card for your server at a glance.
 
 <Frame>
   ![Antinuke config output](/images/antinuke/config.png)
 </Frame>
 
-### Viewing the modules & whitelist
+### Viewing modules and the whitelist
 
-You can use the `antinuke list` command to view the enabled modules and whitelisted users.
-
-<Frame>
-  ![Antinuke modules and whitelist](/images/antinuke/modules-list.png)
-</Frame>
-
-### Viewing users with antinuke admin
-
-You can use the `antinuke admins` command to view users which can configure the antinuke.
+`antinuke list` shows every enabled module alongside the users and bots currently allowed to bypass protection.
 
 <Frame>
-  ![Antinuke admins list](/images/antinuke/admins.png)
+  ![Antinuke modules and whitelist](/images/2026-08-05_00h34_04.png)
 </Frame>
 
-### Permissions available for `antinuke permissions` (grant or remove)
+### Viewing antinuke admins
+
+`antinuke admins` lists everyone who can currently edit the antinuke setup.
+
+<Frame>
+  ![Antinuke admins list](images/2026-08-05_00h20_29.png)
+</Frame>
+
+### Permissions used with `antinuke permissions`
+
+Use these keys when granting or removing dangerous permissions through antinuke.
 
 **Antinuke Permissions**
 
@@ -365,5 +367,5 @@ You can use the `antinuke admins` command to view users which can configure the 
 | `manage_roles` |
 | `view_audit_log` |
 | `manage_webhooks` |
-| `manage_expressions` |
 | `manage_nicknames` |
+| `manage_expressions` |
