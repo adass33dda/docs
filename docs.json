@@ -23,6 +23,13 @@
     ],
     "groups": [
       {
+        "group": "Getting Started",
+        "pages": [
+          "index",
+          "quickstart"
+        ]
+      },
+      {
         "group": "Overview",
         "pages": [
           "index",
@@ -33,6 +40,8 @@
         "group": "Security",
         "icon": " ",
         "pages": [
+          "security/antinuke",
+          "security/antiraid",
           "security/moderation"
         ]
       }

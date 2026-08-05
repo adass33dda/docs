@@ -1,3 +1,186 @@
 ---
 title: "antinuke"
+description: "Shield your server from nukes, mass actions, and rogue admins."
+icon: "shield-virus"
 ---
+
+<Note>
+  Security Setup
+</Note>
+
+## Overview
+
+The antinuke system watches high-impact events (channel wipes, mass bans, role deletions, webhook creation, and more) and stops the actor before real damage lands. Each module can be toggled independently with its own punishment.
+
+<Frame>
+  ![Antinuke overview in Discord](/images/antinuke/overview.png)
+</Frame>
+
+## Enabling antinuke
+
+Antinuke must be turned on at the server level before any module will act.
+
+<CodeGroup>
+
+```txt Syntax
+,antinuke (on | off)
+```
+
+```txt Example
+,antinuke on
+```
+
+</CodeGroup>
+
+## Modules
+
+Every module follows the same shape: turn it on, set a threshold if applicable, and pick a punishment.
+
+<CodeGroup>
+
+```txt Syntax
+,antinuke <module> (on | off) --do <kick | ban | strip>
+```
+
+```txt Example
+,antinuke channel on --do ban
+```
+
+</CodeGroup>
+
+<Frame>
+  ![List of available antinuke modules](/images/antinuke/modules-list.png)
+</Frame>
+
+### Channel protection
+
+Triggers when a member creates, edits, or deletes channels past the configured threshold.
+
+<Frame>
+  ![Enabling the channel antinuke module](/images/antinuke/channel.png)
+</Frame>
+
+### Role protection
+
+Triggers when roles are created, edited, or deleted in bulk.
+
+<Frame>
+  ![Enabling the role antinuke module](/images/antinuke/role.png)
+</Frame>
+
+### Ban protection
+
+Triggers when a member bans users past the threshold in a short time window.
+
+<Frame>
+  ![Enabling the ban antinuke module](/images/antinuke/ban.png)
+</Frame>
+
+### Kick protection
+
+Triggers when a member kicks users past the threshold in a short time window.
+
+<Frame>
+  ![Enabling the kick antinuke module](/images/antinuke/kick.png)
+</Frame>
+
+### Webhook protection
+
+Triggers when webhooks are created, edited, or deleted.
+
+<Frame>
+  ![Enabling the webhook antinuke module](/images/antinuke/webhook.png)
+</Frame>
+
+### Emoji protection
+
+Triggers when emojis are created, edited, or deleted in bulk.
+
+<Frame>
+  ![Enabling the emoji antinuke module](/images/antinuke/emoji.png)
+</Frame>
+
+### Vanity protection
+
+Triggers when the server's vanity URL is changed.
+
+<Frame>
+  ![Enabling the vanity antinuke module](/images/antinuke/vanity.png)
+</Frame>
+
+### Bot add protection
+
+Blocks new bots from being added by anyone who is not whitelisted.
+
+<Frame>
+  ![Enabling the botadd antinuke module](/images/antinuke/botadd.png)
+</Frame>
+
+## Admins
+
+Antinuke admins are trusted users allowed to configure and manage antinuke itself. Only the server owner can add or remove admins.
+
+<CodeGroup>
+
+```txt Syntax
+,antinuke admin (member)
+,antinuke admins
+```
+
+```txt Example
+,antinuke admin @Inboards
+```
+
+</CodeGroup>
+
+<Frame>
+  ![Adding an antinuke admin](/images/antinuke/admin.png)
+</Frame>
+
+<Frame>
+  ![Viewing the antinuke admins list](/images/antinuke/admins.png)
+</Frame>
+
+## Whitelist
+
+Whitelisted users and bots are exempt from antinuke punishments. Use this for trusted staff, bots, and integrations.
+
+<CodeGroup>
+
+```txt Syntax
+,antinuke whitelist (member | bot)
+```
+
+```txt Example
+,antinuke whitelist @Inboards
+```
+
+</CodeGroup>
+
+<Frame>
+  ![Managing the antinuke whitelist](/images/antinuke/whitelist.png)
+</Frame>
+
+## Flags
+
+Optional flags refine how a module behaves. Available flags depend on the module.
+
+<Frame>
+  ![Antinuke module flags reference](/images/antinuke/flags.png)
+</Frame>
+
+## Viewing the antinuke configuration
+
+Use `,antinuke config` to view every module's current state, threshold, and punishment.
+
+<CodeGroup>
+
+```txt Syntax
+,antinuke config
+```
+
+</CodeGroup>
+
+<Frame>
+  ![Output of the antinuke config command](/images/antinuke/config.png)
+</Frame>
