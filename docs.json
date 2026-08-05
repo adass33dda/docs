@@ -57,18 +57,6 @@
       "href": "https://sanity.ws"
     }
   },
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
-    ]
-  },
   "footer": {
     "socials": {
       "discord": "https://discord.gg/ajJM66bxQZ"
