@@ -33,9 +33,7 @@
         "group": "Security",
         "icon": " ",
         "pages": [
-          "security/antinuke",
-          "security/antiraid",
-          "Security Setup/moderation"
+          "security/moderation"
         ]
       }
     ]
