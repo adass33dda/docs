@@ -30,6 +30,13 @@
         ]
       },
       {
+        "group": "Getting Started",
+        "pages": [
+          "index",
+          "quickstart"
+        ]
+      },
+      {
         "group": "Overview",
         "pages": [
           "index",
