@@ -1,0 +1,128 @@
+---
+title: "Fake Permissions"
+description: "Let moderators use Sanity's moderation commands without handing out real Discord permissions."
+icon: "mask"
+sidebarTitle: "Fake Permissions"
+---
+
+## Overview
+
+### Why use fake permissions?
+
+Fake permissions let your staff moderate through Sanity without ever holding the real Discord permission. If one of their accounts is compromised or a rogue moderator tries to abuse the API directly, they can't mass ban, wipe channels, or nuke the server, because they never actually had those permissions to begin with.
+
+### How do fake permissions work?
+
+When you grant a role a fake permission like `ban_members`, that role can run `,ban` through Sanity, but Discord itself still sees them as a regular member. Any script, third party tool, or native Discord action that relies on the real permission will fail.
+
+### Finding the permission a command needs
+
+Run `,help (command)` to see which permission a command requires. Grant that same permission as a fake permission and the role will be able to use the command.
+
+<Tip>
+  The permission listed under **Information** in `,help` is exactly what you pass to `,fakepermissions grant`.
+</Tip>
+
+## Setting up fake permissions
+
+<Warning>
+  Only the server owner can manage fake permissions. This is intentional so a compromised admin can't hand themselves new powers.
+</Warning>
+
+<AccordionGroup>
+  <Accordion title="Granting fake permissions to a role">
+    Use `,fakepermissions grant` to give a role one or more fake permissions.
+
+    <CodeGroup>
+
+    ```txt Syntax
+    ,fakepermissions grant (role) (permissions...)
+    ```
+
+    ```txt Example
+    ,fakepermissions grant @admin ban_members, kick_members
+    ```
+
+    </CodeGroup>
+  </Accordion>
+
+  <Accordion title="Revoking fake permissions from a role">
+    Use `,fakepermissions revoke` to remove specific fake permissions from a role.
+
+    <CodeGroup>
+
+    ```txt Syntax
+    ,fakepermissions revoke (role) (permissions...)
+    ```
+
+    ```txt Example
+    ,fakepermissions revoke @admin ban_members, kick_members
+    ```
+
+    </CodeGroup>
+  </Accordion>
+
+  <Accordion title="Viewing fake permissions">
+    Use `,fakepermissions list` to see every role with fake permissions configured.
+
+    <Info>
+      Pass a role to only see the fake permissions granted to that specific role.
+    </Info>
+
+    <CodeGroup>
+
+    ```txt Syntax
+    ,fakepermissions list (role)?
+    ```
+
+    ```txt Example
+    ,fakepermissions list @admin
+    ```
+
+    </CodeGroup>
+  </Accordion>
+
+  <Accordion title="Clearing all fake permissions">
+    Use `,fakepermissions reset` to wipe every fake permission on the server. This cannot be undone.
+
+    ```txt Example
+    ,fakepermissions reset
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Recommended configuration
+
+A good starting point for most servers. Adjust to fit your team.
+
+<Tabs>
+  <Tab title="Moderator">
+    - `manage_messages` - delete messages and purge.
+    - `moderate_members` - timeout members.
+    - `manage_nicknames` - change member nicknames.
+    - `kick_members` - kick members from the server.
+
+    ```txt Example
+    ,fakepermissions grant @moderator manage_messages, moderate_members, manage_nicknames, kick_members
+    ```
+  </Tab>
+  <Tab title="Administrator">
+    - `manage_messages` - delete messages and purge.
+    - `moderate_members` - timeout members.
+    - `manage_nicknames` - change member nicknames.
+    - `manage_roles` - assign and remove roles.
+    - `ban_members` - ban members.
+    - `kick_members` - kick members.
+
+    ```txt Example
+    ,fakepermissions grant @admin manage_messages, moderate_members, manage_nicknames, manage_roles, ban_members, kick_members
+    ```
+  </Tab>
+  <Tab title="Co-Owner">
+    - `administrator` - full access to every moderation command through Sanity.
+
+    ```txt Example
+    ,fakepermissions grant @co-owner administrator
+    ```
+  </Tab>
+</Tabs>
