@@ -40,8 +40,8 @@
     ]
   },
   "logo": {
-    "light": "/images/sanitylogo.png",
-    "dark": "/images/sanitylogo.png",
+    "light": "/images/sanitylogo.svg",
+    "dark": "/images/sanitylogo.svg",
     "href": "https://sanity.ws"
   },
   "navbar": {
