@@ -1,0 +1,76 @@
+---
+title: "Moderation"
+sidebarTitle: "Moderation"
+description: "Guide to setting up moderation commands in your server."
+icon: "gavel"
+---
+
+## Overview
+
+Moderation commands require a small amount of setup before they can be used. This includes the **case log channel**, **jail role & channel**, and **mute roles**.
+
+<Steps>
+  <Step title="Run the setup command">
+    <Info>
+      `,setup` provisions everything moderation needs in one go: the jail role, all three mute roles, and the log channels.
+    </Info>
+
+    Use the `,setup` command. It creates:
+
+    - **Jailed** role
+    - **Muted** role
+    - **Image Muted** role
+    - **Reaction Muted** role
+    - `#jail` channel
+    - `#case-log` channel
+  </Step>
+  <Step title="Recover or rebuild mute roles (optional)">
+    If any of the mute roles get deleted, run `,setupmute` to recreate them without touching the rest of the setup.
+  </Step>
+</Steps>
+
+Once setup finishes, you'll see the following roles and channels in your server:
+
+- **Jailed** - Restricts users from every channel except `#jail`.
+- **Muted** - Restricts users from sending messages.
+- **Image Muted** - Restricts users from uploading attachments.
+- **Reaction Muted** - Restricts users from reacting to messages.
+- `#jail` - The only channel jailed users can talk in.
+- `#case-log` - Logs every moderation action taken through Sanity (e.g. `,ban`, `,kick`).
+
+## Invoke Messages
+
+You can customize both the **command response** (the message posted in chat) and the **direct message** sent to the punished user, per moderation command.
+
+The following commands support invoke customization:
+
+- `jail`, `kick`, `ban`, `tempban`, `softban`, `timeout`
+
+<Tip>
+  The `message` parameter accepts raw text or an embed, and supports dynamic variables listed below.
+</Tip>
+
+### Supported variables
+
+| Variable | Description |
+| --- | --- |
+| `{user}` | The punished user's mention. |
+| `{reason}` | The reason provided with the command. |
+| `{mod}` | The moderator who issued the command. |
+| `{server}` | The server name. |
+| `{duration}` | Duration of the punishment (tempban, timeout). |
+| `{checkmark}` | Default success emoji. |
+
+### Syntax
+
+```text
+,invoke <command> message [text]
+,invoke <command> dm [text]
+```
+
+### Example
+
+```text
+,invoke jail message {user} has been jailed for {reason}
+,invoke jail dm you have been jailed in {server} for {reason}
+```

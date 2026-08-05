@@ -34,7 +34,8 @@
         "icon": " ",
         "pages": [
           "security/antinuke",
-          "security/antiraid"
+          "security/antiraid",
+          "security/moderation"
         ]
       }
     ]
