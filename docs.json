@@ -37,8 +37,7 @@
         ]
       },
       {
-        "group": "Security",
-        "icon": " ",
+        "group": "security",
         "pages": [
           "security/antinuke",
           "security/antiraid",
