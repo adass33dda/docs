@@ -56,7 +56,7 @@
   "logo": {
     "light": "/images/sanitylogo.svg",
     "dark": "/images/sanitylogo.svg",
-    "href": "https://sanity.ws"
+    "href": "https://siy.ws"
   },
   "navbar": {
     "links": [
@@ -67,8 +67,8 @@
     ],
     "primary": {
       "type": "button",
-      "label": "WebSite",
-      "href": "https://sanity.ws"
+      "label": "Website",
+      "href": "https://san.ws"
     }
   },
   "footer": {
