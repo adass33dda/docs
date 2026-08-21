@@ -81,5 +81,9 @@
       "light": "#818483",
       "dark": "#151515"
     }
+  },
+  "contextual": {
+    "options": [],
+    "display": "header"
   }
 }
