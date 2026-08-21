@@ -26,6 +26,7 @@
         "group": "Get Started",
         "pages": [
           "index",
+          "customization",
           "quickstart"
         ]
       },
@@ -37,18 +38,6 @@
           "security/antiraid",
           "security/fakepermissions",
           "security/moderation"
-        ]
-      },
-      {
-        "group": "Configuration",
-        "pages": [
-          "customization"
-        ]
-      },
-      {
-        "group": "Help",
-        "pages": [
-          "faq"
         ]
       }
     ]
