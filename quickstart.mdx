@@ -1,3 +1,75 @@
 ---
-title: "quickstart"
+title: "Quickstart: get Sanity running in 5 minutes"
+sidebarTitle: "Quickstart"
+description: "Invite Sanity, run the setup command, and lock down your server with antinuke and antiraid in a few minutes."
+icon: "rocket"
 ---
+
+Get Sanity into your server and get the essentials configured before you close this tab. Everything below assumes the default `,` prefix.
+
+<Steps>
+  <Step title="Invite Sanity">
+    Head to [sanity.ws](https://sanity.ws) and click **Invite**. Pick your server and keep the default permissions. Sanity needs them to moderate, ban, and manage channels.
+
+    <Warning>
+      Do not strip Sanity's role of permissions after inviting. If it can't ban or manage roles, antinuke and antiraid can't defend your server.
+    </Warning>
+  </Step>
+  <Step title="Run the setup command">
+    In any channel Sanity can see, run:
+
+    ```txt Setup
+    ,setup
+    ```
+
+    This creates the jail role, all three mute roles (mute, image mute, reaction mute), a `#jail` channel, and a `#case-log` channel. One command and moderation is ready to go.
+  </Step>
+  <Step title="Turn on antinuke">
+    Antinuke is the single most important thing you'll enable. It watches for mass bans, mass channel deletes, and role wipes, then punishes whoever did it.
+
+    ```txt Enable antinuke
+    ,antinuke enable
+    ```
+
+    Then whitelist yourself and anyone you fully trust:
+
+    ```txt Whitelist an admin
+    ,antinuke admin @yourname
+    ```
+
+    Full setup lives on the [Antinuke page](/security/antinuke).
+  </Step>
+  <Step title="Turn on antiraid">
+    Antiraid catches raid waves before they land. Enable mass-join protection with a sane default:
+
+    ```txt Mass join
+    ,antiraid massjoin on --threshold 5 --do ban --lock true --punish true
+    ```
+
+    That bans anyone joining faster than 5 accounts in a short window and locks the server for the duration. Tune the numbers to your join rate on the [Antiraid page](/security/antiraid).
+  </Step>
+  <Step title="Give your staff fake permissions">
+    Don't hand out real Discord permissions to moderators. Give them fake ones instead so a compromised staff account can't nuke you.
+
+    ```txt Grant a moderator role
+    ,fakepermissions grant @moderator manage_messages moderate_members kick_members
+    ```
+
+    Recommended role tiers are documented on the [Fake Permissions page](/security/fakepermissions).
+  </Step>
+  <Step title="You're done">
+    Your server is now protected against nukes, raids, and rogue staff. Head to the [Security overview](/security/overview) to fine-tune everything or the [FAQ](/faq) if something isn't working.
+  </Step>
+</Steps>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Security overview" icon="shield-check" href="/security/overview">
+    Recommended setups for small, mid-size, and large servers.
+  </Card>
+
+  <Card title="Customization" icon="paintbrush" href="/customization">
+    Make Sanity look like it belongs to your community.
+  </Card>
+</CardGroup>

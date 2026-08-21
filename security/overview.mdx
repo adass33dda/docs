@@ -1,0 +1,73 @@
+---
+title: "Security overview: choosing your setup"
+sidebarTitle: "Overview"
+description: "Pick the right combination of antinuke, antiraid, moderation, and fake permissions based on your server's size and threat model."
+icon: "shield-check"
+---
+
+Sanity's security features stack. Antinuke stops rogue admins, antiraid stops raid waves, fake permissions stop compromised staff, and moderation handles day-to-day incidents. This page helps you pick the right combination for your server.
+
+## Recommended setups
+
+<Tabs>
+  <Tab title="Small (under 500)">
+    You mostly need moderation and a light safety net. Raiders rarely target small servers, but one bad admin can still ruin your day.
+
+    - Run `,setup` to provision moderation.
+    - Enable `,antinuke enable` and whitelist yourself only.
+    - Skip antiraid unless you've been hit before.
+    - Give one trusted person `,fakepermissions grant` moderator perms.
+  </Tab>
+  <Tab title="Mid-size (500 to 5k)">
+    You're big enough to be noticed. Turn on everything.
+
+    - Full moderation via `,setup`.
+    - Antinuke enabled with a tight admin whitelist (owner plus 1 to 2 co-owners).
+    - Antiraid mass-join at threshold 5, action ban, lock true.
+    - Fake permissions for all staff tiers. See the tiers on the [Fake Permissions page](/security/fakepermissions).
+  </Tab>
+  <Tab title="Large (5k+)">
+    Assume you'll be attacked. Configure aggressively and audit regularly.
+
+    - All of the above.
+    - Antiraid mass-join at threshold 3, plus new-account filtering.
+    - Antinuke thresholds tuned down (fewer allowed actions before punish).
+    - No real Discord admin permissions handed to anyone except the owner.
+    - Review `,antinuke admin list` and `,fakepermissions list` monthly.
+  </Tab>
+</Tabs>
+
+## How the features fit together
+
+<CardGroup cols={2}>
+  <Card title="Antinuke" icon="fingerprint" href="/security/antinuke">
+    Stops trusted admins (or their hijacked accounts) from mass banning, wiping channels, or deleting roles.
+  </Card>
+
+  <Card title="Antiraid" icon="person-to-door" href="/security/antiraid">
+    Stops external attackers: mass joins, new-account waves, and spam DMs.
+  </Card>
+
+  <Card title="Fake permissions" icon="mask" href="/security/fakepermissions">
+    Lets moderators do their job through Sanity without holding real Discord permissions.
+  </Card>
+
+  <Card title="Moderation" icon="gavel" href="/security/moderation">
+    Day-to-day: warns, mutes, jails, kicks, and bans with a full case log.
+  </Card>
+</CardGroup>
+
+## The rule of least permission
+
+<Tip>
+  The single best thing you can do for your server's security: no one but you should have real Discord admin. Everyone else moderates through Sanity via fake permissions. If a staff account gets compromised, the attacker has nothing.
+</Tip>
+
+## After an incident
+
+If someone got past your defenses, don't panic. Sanity keeps a full audit trail.
+
+- Check `#case-log` for what happened and who did it.
+- Run `,antinuke admin list` to see who was whitelisted at the time.
+- Revoke anyone who shouldn't be there with `,antinuke admin remove @user`.
+- Head to the [FAQ](/faq) for recovery steps.
