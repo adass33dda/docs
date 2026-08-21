@@ -1,13 +1,15 @@
 ---
-title: "Moderation"
+title: "Moderation: set up warns, mutes, and jails"
 sidebarTitle: "Moderation"
-description: "Guide to setting up moderation commands in your server."
+description: "Set up Sanity's moderation with one command: case log, jail role and channel, plus mute, image mute, and reaction mute roles."
 icon: "gavel"
 ---
 
+Moderation is what your staff actually uses day to day. Sanity handles the boring plumbing (jail role, mute roles, case log) with one command, then gives you customizable warns, mutes, kicks, jails, and bans on top.
+
 ## Overview
 
-Moderation commands require a small amount of setup before they can be used. This includes the **case log channel**, **jail role & channel**, and **mute roles**.
+Before staff can moderate, Sanity needs somewhere to log cases, a jail role and channel, and three mute roles. One command sets it all up.
 
 <Steps>
   <Step title="Run the setup command">
@@ -38,9 +40,9 @@ Once setup finishes, you'll see the following roles and channels in your server:
 - `#jail` - The only channel jailed users can talk in.
 - `#case-log` - Logs every moderation action taken through Sanity (e.g. `,ban`, `,kick`).
 
-## Invoke Messages
+## Invoke messages
 
-You can customize both the **command response** (the message posted in chat) and the **direct message** sent to the punished user, per moderation command.
+Customize what Sanity says when a moderation command fires, both in chat and in the DM the punished user receives. Every command below can have its own message and its own tone.
 
 The following commands support invoke customization:
 

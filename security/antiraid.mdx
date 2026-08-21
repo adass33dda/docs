@@ -1,15 +1,17 @@
 ---
-title: "Antiraid"
-description: "Prevent automated accounts from joining your server."
+title: "Antiraid: stop mass joins and raid accounts"
+description: "Configure Sanity's antiraid to block mass joins, avatar-less accounts, and new accounts before they hit your server."
 icon: "person-to-door"
 sidebarTitle: "Antiraid"
 ---
+
+Antiraid is Sanity's front door filter. It stops raid waves, alt accounts, and fresh throwaways before they land in your channels. Every module below is independent, so turn on only what fits your threat model.
 
 ## Configuring the antiraid system
 
 ### Preventing mass joins
 
-This module will trigger when the number of accounts joining the server exceeds the threshold within a short time frame.
+Fires when too many accounts join inside a short window. This is the module that catches actual raids.
 
 <Warning>
   Whenever the threshold is reached, the server will be placed in a raid state. This will temporarily disable intensive events which Sanity dispatches, such as **welcome** and **goodbye** messages.
@@ -51,7 +53,7 @@ This module will trigger when the number of accounts joining the server exceeds 
 
 ### Requiring an avatar
 
-This module will trigger when an account joins the server without an avatar.
+Bots and burner accounts almost never bother setting an avatar. Turn this on and Sanity punts them the moment they join.
 
 <CodeGroup>
 
@@ -77,7 +79,7 @@ This module will trigger when an account joins the server without an avatar.
 
 ### Setting a minimum account age
 
-This module will trigger when an account joins the server that is younger than the specified age.
+Raid tooling churns out fresh accounts by the thousand. Set a minimum age and Sanity turns them away at the door.
 
 <Info>
   The `threshold` flag is the number of days for an account to be considered old enough.
@@ -111,7 +113,7 @@ This module will trigger when an account joins the server that is younger than t
 
 ### Exempting accounts from the antiraid
 
-You can exempt accounts from the antiraid with the `antiraid whitelist` command.
+Got a partner bot or a trusted account that keeps tripping the filter? Whitelist it so Sanity ignores it entirely.
 
 <Info>
   You can use the `antiraid whitelist view` command to view all whitelisted accounts.

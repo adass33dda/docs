@@ -23,25 +23,32 @@
     ],
     "groups": [
       {
-        "group": "Overview",
+        "group": "Get Started",
         "pages": [
           "index",
-          "customization"
-        ]
-      },
-      {
-        "group": "security",
-        "pages": [
-          "security/antinuke",
-          "security/antiraid",
-          "security/moderation",
-          "security/fakepermissions"
+          "quickstart"
         ]
       },
       {
         "group": "Security",
         "pages": [
-          "security/overview"
+          "security/overview",
+          "security/antinuke",
+          "security/antiraid",
+          "security/fakepermissions",
+          "security/moderation"
+        ]
+      },
+      {
+        "group": "Configuration",
+        "pages": [
+          "customization"
+        ]
+      },
+      {
+        "group": "Help",
+        "pages": [
+          "faq"
         ]
       }
     ]
